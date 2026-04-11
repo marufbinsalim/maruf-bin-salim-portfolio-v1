@@ -15,7 +15,6 @@ export default function RouteTransitionProvider({
     const pathname = usePathname();
     const [isAnimating, setIsAnimating] = useState(false);
     const [childrenNode, setChildrenNode] = useState<React.ReactNode>(null);
-    useState<React.ReactNode>(children);
 
     useEffect(() => {
         if (intialRender.current) {
