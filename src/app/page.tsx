@@ -1,8 +1,12 @@
 
 export default function Home() {
   return (
-    <div>
-      <h1>Getting Started . . .</h1>
+    <div className="flex flex-col gap-3 p-10">
+      {
+        Array.from({ length: 1000 }).map((_, i) => (
+          <div className="h-20 w-full bg-black" key={i} />
+        ))
+      }
     </div>
   );
 }
