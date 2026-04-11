@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { AnimatedText } from "@/components/ui/animated-text";
 
 const navItems = [
   { href: "/about", label: "About" },
@@ -46,7 +47,9 @@ export default function Navbar() {
               }}
             >
               <Link href={item.href}>
-                {item.label}
+                <AnimatedText>
+                  {item.label}
+                </AnimatedText>
               </Link>
             </motion.div>
           ))}
