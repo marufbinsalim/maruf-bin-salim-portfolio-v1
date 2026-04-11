@@ -1,8 +1,24 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, Easing, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+type ConfigType = {
+  ANIMATION_DURATION: {
+    MS: number;
+    S: number;
+  };
+  ANIMATION_EASING: Easing | Easing[];
+};
+
+const CONFIG: ConfigType = {
+  ANIMATION_DURATION: {
+    MS: 600,
+    S: 0.6,
+  },
+  ANIMATION_EASING: [0.76, 0, 0.24, 1],
+};
 
 export default function RouteTransitionProvider({
   children,
@@ -10,23 +26,34 @@ export default function RouteTransitionProvider({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+
+  const intialRender = useRef(true);
+
   const [isAnimating, setIsAnimating] = useState(false);
-  const [displayChildren, setDisplayChildren] = useState(children);
+  const [childrenNode, setChildrenNode] = useState<React.ReactNode>(children);
+    useState<React.ReactNode>(children);
 
   useEffect(() => {
+
+    if (intialRender.current) {
+      intialRender.current = false;
+      return;
+    }
+
     setIsAnimating(true);
+    setChildrenNode(null);
 
     const timeout = setTimeout(() => {
-      setDisplayChildren(children);
+      setChildrenNode(children);
       setIsAnimating(false);
-    }, 600); // match animation duration
+    }, CONFIG.ANIMATION_DURATION.MS);
 
     return () => clearTimeout(timeout);
-  }, [pathname]);
+  }, [pathname, children]);
 
   return (
     <>
-      {displayChildren}
+      {childrenNode}
 
       <AnimatePresence>
         {isAnimating && (
@@ -35,8 +62,11 @@ export default function RouteTransitionProvider({
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
-            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed top-0 left-0 z-[9999] border h-screen w-screen rounded-lg bg-white"
+            transition={{
+              duration: CONFIG.ANIMATION_DURATION.S,
+              ease: CONFIG.ANIMATION_EASING,
+            }}
+            className="fixed top-0 left-0 z-[9999] h-screen w-screen bg-white"
           />
         )}
       </AnimatePresence>
