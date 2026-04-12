@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedText } from "@/components/ui/animated-text";
-import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/about", label: "About" },
@@ -17,32 +16,18 @@ export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-
+      setIsVisible(!(currentScrollY > lastScrollY && currentScrollY > 50));
       setLastScrollY(currentScrollY);
     };
 
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", checkMobile);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", checkMobile);
     };
   }, [lastScrollY]);
 
@@ -101,7 +86,7 @@ export default function Navbar() {
 
 
 
-      {/* Mobile Menu Icon */}
+      {/* Mobile Menu Logo */}
       <motion.div
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         className="fixed top-4 left-4 z-50 md:hidden"
