@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedText } from "@/components/ui/animated-text";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/about", label: "About" },
@@ -21,13 +22,13 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
@@ -97,6 +98,38 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
+
+
+
+      {/* Mobile Menu Icon */}
+      <motion.div
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="fixed top-4 left-4 z-50 md:hidden"
+        initial={{ opacity: 0, y: -12 }}
+        animate={{
+          opacity: isMobileMenuOpen || isVisible ? 1 : 0,
+          y: isMobileMenuOpen || isVisible ? 0 : -12,
+        }}
+        transition={{
+          duration: 0.35,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
+        style={{
+          pointerEvents: isMobileMenuOpen || isVisible ? "auto" : "none",
+        }}
+      >
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/assets/logo.png"
+            alt="Logo"
+            width={518}
+            height={214}
+            className="h-8 w-auto min-w-[78px]"
+            priority
+          />
+        </Link>
+      </motion.div>
+
       {/* Mobile Menu Icon */}
       <motion.button
         className="md:hidden fixed top-4 right-4 z-50 p-2"
@@ -127,8 +160,8 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Link 
-                  href={item.href} 
+                <Link
+                  href={item.href}
                   className="text-2xl font-medium text-black"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
