@@ -3,6 +3,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import RouteTransitionProvider from "@/providers/RouteTransitionProvider";
+import Navbar from "@/components/shared/navbar";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -20,6 +21,8 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <SmoothScrollProvider>
           <RouteTransitionProvider>
+      <Navbar />
+
             {children}
           </RouteTransitionProvider>
         </SmoothScrollProvider>
