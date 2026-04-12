@@ -3,11 +3,11 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 
-const POINTS = 100;
+const POINTS = 200;
 const SPRING = 0.12;
 const DAMPING = 0.96;
 const SPREAD = 0.04;
-const MOUSE_INFLUENCE = 100;
+const MOUSE_INFLUENCE = 50;
 
 const MAX_Y = 50;
 const MAX_V = 1000;
