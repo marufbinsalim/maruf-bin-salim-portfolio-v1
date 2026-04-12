@@ -89,7 +89,7 @@ export default function Navbar() {
       {/* Mobile Menu Logo */}
       <motion.div
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="fixed top-4 left-4 z-50 md:hidden"
+        className="fixed top-6 left-6 z-50 md:hidden"
         initial={{ opacity: 0, y: -12 }}
         animate={{
           opacity: isMobileMenuOpen || isVisible ? 1 : 0,
@@ -117,7 +117,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Icon */}
       <motion.button
-        className="md:hidden fixed top-4 right-4 z-50 p-2"
+        className="md:hidden fixed top-6 right-6 z-50 py-2"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
