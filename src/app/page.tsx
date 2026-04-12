@@ -8,6 +8,11 @@ export default function Home() {
     <div className="flex flex-col gap-3">
       <Navbar />
       <main>
+
+        <section className="h-[1000px] bg-white">
+
+        </section>
+
         <section className="h-[300px] relative bg-gray-500 flex items-center justify-center">
           Top Section
           <Divider color="black"/>
