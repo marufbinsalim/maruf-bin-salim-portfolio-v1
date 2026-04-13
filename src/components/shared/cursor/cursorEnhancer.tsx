@@ -87,7 +87,7 @@ export function CursorEnhancerProvider({ children }: { children: ReactNode }) {
 
   return (
     <CursorContext.Provider value={value}>
-      {active !== null && <style>{`*{cursor:none!important}`}</style>}
+      {/* {active !== null && <style>{`*{cursor:none!important}`}</style>} */}
       {children}
       <CursorPortal />
     </CursorContext.Provider>
@@ -103,20 +103,17 @@ function CursorPortal() {
   if (!ctx) return null;
   if (!ctx.active || !ctx.isVisible) return null;
 
-  return createPortal(
+  
+  return (
     <div
       style={{
-        position: 'fixed',
-        inset: 0,
+        position: 'relative',
         pointerEvents: 'none',
-        zIndex: 99999,
-        overflow: 'hidden',
       }}
     >
       {ctx.active}
-    </div>,
-    document.body
-  );
+    </div>
+  )
 }
 
 // -----------------------------------------------------------------------------

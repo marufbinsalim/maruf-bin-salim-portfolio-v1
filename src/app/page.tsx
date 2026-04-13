@@ -5,15 +5,15 @@ import { CircleCursor, DotCursor, LabelCursor, SquareCursor } from "@/components
 
 export default function Home() {
   return (
-    <CursorEnhancerProvider>
-      <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3">
+      <CursorEnhancerProvider>
 
         <main>
 
           {/* ───────────────────────────────────────────── */}
           {/* HERO / EMPTY AREA (default cursor only) */}
           {/* ───────────────────────────────────────────── */}
-          <section className="h-[1000px] bg-white flex items-center justify-center">
+          <section className="h-[1000px] bg-red-500 flex items-center justify-center">
             Default Cursor Zone
           </section>
 
@@ -66,7 +66,7 @@ export default function Home() {
           {/* BLEND MODE EFFECT */}
           {/* ───────────────────────────────────────────── */}
           <CursorEnhancerLayer
-            enhance={<CircleCursor size={60} color="red" blendMode="difference" />}
+            enhance={<CircleCursor size={60} color="white" backgroundColor="white" blendMode="difference" />}
           >
             <section className="h-[250px] flex items-center justify-center bg-black text-white">
               Blend Mode Cursor Zone
@@ -102,7 +102,7 @@ export default function Home() {
           </section>
 
         </main>
-      </div>
-    </CursorEnhancerProvider>
+      </CursorEnhancerProvider>
+    </div>
   );
 }

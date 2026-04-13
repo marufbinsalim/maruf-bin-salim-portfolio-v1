@@ -48,6 +48,7 @@ export function CircleCursor({
   borderWidth = 1.5,
   blendMode = "normal",
   springPreset = "smooth",
+  backgroundColor = "transparent",
 }) {
   const config = springPreset === "snappy" ? SPRING_SNAPPY
                : springPreset === "lazy"   ? SPRING_LAZY
@@ -64,6 +65,7 @@ export function CircleCursor({
         width: size,
         height: size,
         borderRadius: "50%",
+        zIndex: 99999,
         border: `${borderWidth}px solid ${color}`,
         x: sx,
         y: sy,
@@ -71,6 +73,7 @@ export function CircleCursor({
         translateY: "-50%",
         mixBlendMode: blendMode as any,
         pointerEvents: "none",
+        backgroundColor: backgroundColor,
       }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
