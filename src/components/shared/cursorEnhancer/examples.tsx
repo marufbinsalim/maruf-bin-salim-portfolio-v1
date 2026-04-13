@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useEffect } from "react";
+import { animate, motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useCursorState } from ".";
 
 // ─── Spring presets ─────────────────────────────────────────────
@@ -59,10 +59,50 @@ export function CircleCursor({
     springPreset === "snappy"
       ? SPRING_SNAPPY
       : springPreset === "lazy"
-      ? SPRING_LAZY
-      : SPRING_SMOOTH;
+        ? SPRING_LAZY
+        : SPRING_SMOOTH;
 
   const { sx, sy } = useTrackedPosition(config);
+
+  const targetHoverSize = size * 2;
+
+  // 🎯 motion value for size
+  const sizeMV = useMotionValue(size);
+
+  // 🧲 smooth spring animation
+  const animatedSize = useSpring(sizeMV, config);
+
+  const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent) => {
+      const el = document.elementFromPoint(
+        e.clientX,
+        e.clientY
+      ) as HTMLElement | null;
+
+      if (!el) return;
+
+      const isInteractive =
+        el.closest("a") !== null ||
+        el.closest("button") !== null ||
+        el.closest("[data-cursor='link']") !== null;
+
+      setIsHoveringInteractive(isInteractive);
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
+  // 🚀 animate size change smoothly
+  useEffect(() => {
+    animate(sizeMV, isHoveringInteractive ? targetHoverSize : size, {
+      type: "spring",
+      stiffness: config.stiffness,
+      damping: config.damping,
+    });
+  }, [isHoveringInteractive, size, targetHoverSize, sizeMV, config]);
 
   return (
     <motion.div
@@ -70,23 +110,19 @@ export function CircleCursor({
         position: "fixed",
         top: 0,
         left: 0,
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        zIndex: 99999,
-        border: `${borderWidth}px solid ${color}`,
         x: sx,
         y: sy,
         translateX: "-50%",
         translateY: "-50%",
+        width: animatedSize,   // OK ONLY in motion.div
+        height: animatedSize,  // OK ONLY in motion.div
+        borderRadius: "999px",
+        border: `${borderWidth}px solid ${color}`,
+        backgroundColor,
         mixBlendMode: blendMode,
         pointerEvents: "none",
-        backgroundColor,
+        zIndex: 999999, // 👈 ADD THIS (very important)
       }}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0, opacity: 0 }}
-      transition={{ duration: 0.18 }}
     />
   );
 }
@@ -187,8 +223,8 @@ export function LabelCursor({
     springPreset === "snappy"
       ? SPRING_SNAPPY
       : springPreset === "lazy"
-      ? SPRING_LAZY
-      : SPRING_SMOOTH;
+        ? SPRING_LAZY
+        : SPRING_SMOOTH;
 
   const { sx, sy } = useTrackedPosition(config);
 

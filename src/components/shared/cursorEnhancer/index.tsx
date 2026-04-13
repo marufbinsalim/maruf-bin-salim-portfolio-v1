@@ -23,8 +23,8 @@ interface CursorContextValue {
   y: number;
   isVisible: boolean;
   active: CursorNode;
-  activate: (node: CursorNode) => void;
-  deactivate: () => void;
+  push: (node: CursorNode) => void;
+  pop: () => void;
 }
 
 // -----------------------------------------------------------------------------
@@ -45,14 +45,14 @@ export function useCursorState() {
 
 export function CursorEnhancerProvider({ children }: { children: ReactNode }) {
   const [pos, setPos] = useState({ x: -999, y: -999 });
-  const [active, setActive] = useState<CursorNode>(null);
   const [isVisible, setIsVisible] = useState(false);
+  
+  // Stack of cursor nodes — top of stack is the active cursor
+  const stackRef = useRef<CursorNode[]>([]);
+  const [active, setActive] = useState<CursorNode>(null);
 
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
-    };
-
+    const move = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
     const enter = () => setIsVisible(true);
     const leave = () => setIsVisible(false);
 
@@ -67,27 +67,23 @@ export function CursorEnhancerProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const activate = useCallback((node: CursorNode) => {
+  // Push a new cursor onto the stack (on layer enter)
+  const push = useCallback((node: CursorNode) => {
+    stackRef.current = [...stackRef.current, node];
     setActive(node);
     setIsVisible(true);
   }, []);
 
-  const deactivate = useCallback(() => {
-    setActive(null);
+  // Pop the current cursor off the stack (on layer leave), restore parent
+  const pop = useCallback(() => {
+    const next = [...stackRef.current];
+    next.pop();
+    stackRef.current = next;
+    setActive(next.length > 0 ? next[next.length - 1] : null);
   }, []);
 
-  const value: CursorContextValue = {
-    x: pos.x,
-    y: pos.y,
-    isVisible,
-    active,
-    activate,
-    deactivate,
-  };
-
   return (
-    <CursorContext.Provider value={value}>
-      {/* {active !== null && <style>{`*{cursor:none!important}`}</style>} */}
+    <CursorContext.Provider value={{ x: pos.x, y: pos.y, isVisible, active, push, pop }}>
       {children}
       <CursorPortal />
     </CursorContext.Provider>
@@ -95,16 +91,19 @@ export function CursorEnhancerProvider({ children }: { children: ReactNode }) {
 }
 
 // -----------------------------------------------------------------------------
-// Portal
+// Portal — fixed to viewport, follows mouse
 // -----------------------------------------------------------------------------
 
 function CursorPortal() {
   const ctx = useContext(CursorContext);
-  if (!ctx) return null;
-  if (!ctx.active || !ctx.isVisible) return null;
+  const [mounted, setMounted] = useState(false);
 
-  
+  useEffect(() => { setMounted(true); }, []);
+
+  if (!ctx || !mounted || !ctx.active || !ctx.isVisible) return null;
+
   return (
+
     <div
       style={{
         position: 'relative',
@@ -139,24 +138,25 @@ export function CursorEnhancerLayer({
   const ctx = useContext(CursorContext);
   if (!ctx) throw new Error('CursorEnhancerLayer must be inside provider');
 
-  const active = useRef(false);
+  const entered = useRef(false);
 
-  const enter = () => {
-    active.current = true;
-    ctx.activate(enhance);
+  const handleEnter = () => {
+    if (entered.current) return;
+    entered.current = true;
+    ctx.push(enhance);
   };
 
-  const leave = () => {
-    if (!active.current) return;
-    active.current = false;
-    ctx.deactivate();
+  const handleLeave = () => {
+    if (!entered.current) return;
+    entered.current = false;
+    ctx.pop();
   };
 
   return (
     <Tag
-      onMouseEnter={enter}
-      onMouseLeave={leave}
-      style={{ display: 'contents', ...style }}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      style={{...style }}
       className={className}
       {...rest}
     >
