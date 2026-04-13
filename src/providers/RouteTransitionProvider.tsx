@@ -9,7 +9,6 @@ export default function RouteTransitionProvider({
 }: {
     children: React.ReactNode;
 }) {
-
     const intialRender = useRef(true);
 
     const pathname = usePathname();
@@ -49,8 +48,11 @@ export default function RouteTransitionProvider({
                             duration: CONFIG.ANIMATION_DURATION.S,
                             ease: CONFIG.ANIMATION_EASING,
                         }}
-                        className="fixed top-0 left-0 z-[9999] h-screen w-screen bg-white"
-                    />
+                        className="fixed inset-0 z-[9999] bg-white overflow-hidden"
+                    >
+                        {/* GRID LAYER */}
+                        <div className="grid-overlay" />
+                    </motion.div>
                 )}
             </AnimatePresence>
         </>
@@ -67,8 +69,8 @@ type ConfigType = {
 
 const CONFIG: ConfigType = {
     ANIMATION_DURATION: {
-        MS: 600,
-        S: 0.6,
+        MS: 1200,
+        S: 1.2,
     },
     ANIMATION_EASING: [0.76, 0, 0.24, 1],
 };

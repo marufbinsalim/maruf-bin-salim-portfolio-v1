@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect } from "react";
-import { useCursorState } from "./cursorEnhancer";
+import { useCursorState } from ".";
 
 // ─── Spring presets ─────────────────────────────────────────────
 

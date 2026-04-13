@@ -1,7 +1,7 @@
 import Divider from "@/components/ui/divider";
 
-import { CursorEnhancerLayer, CursorEnhancerProvider } from "@/components/shared/cursor/cursorEnhancer";
-import { CircleCursor, DotCursor, LabelCursor, SquareCursor } from "@/components/shared/cursor/enhancedCursors";
+import { CursorEnhancerLayer, CursorEnhancerProvider } from "@/components/shared/cursorEnhancer";
+import { CircleCursor, DotCursor, LabelCursor, SquareCursor } from "@/components/shared/cursorEnhancer/examples";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
           {/* ───────────────────────────────────────────── */}
           {/* HERO / EMPTY AREA (default cursor only) */}
           {/* ───────────────────────────────────────────── */}
-          <section className="h-[1000px] bg-red-500 flex items-center justify-center">
+          <section className="h-[1000px] bg-white flex items-center justify-center">
             Default Cursor Zone
           </section>
 
