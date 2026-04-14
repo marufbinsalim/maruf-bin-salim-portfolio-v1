@@ -40,7 +40,7 @@ export default function Navbar() {
         animate={{ y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <div className="flex items-center justify-between h-full px-[10rem] gap-10">
+        <div className="flex items-center justify-between h-full px-[8svw] gap-10">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0 }}

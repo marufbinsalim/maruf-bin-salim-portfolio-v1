@@ -2,13 +2,12 @@
 
 import { CursorFadingLineTrail } from "@/components/shared/custom-cursor-trails/cursor-fading-line-trail";
 import { CursorCircularTrail, CursorTrailArea } from "cursor-trail-react";
+import HeroSection from "./_partials/HeroSection";
 
 export default function Home() {
   return (
-    <CursorTrailArea.div trail={<CursorFadingLineTrail color="black" />}>
-      <div className="h-[1000px] bg-gray-300 text-white mt-16 w-full">
-        Should be black
-      </div>
+    <CursorTrailArea.div trail={<CursorCircularTrail color="black" backgroundColor="black" />} className="pt-16">
+      <HeroSection/>
       <div className="flex flex-col h-svh border bg-black">
         <CursorTrailArea.div trail={<CursorCircularTrail color="blue" />}>
           <div className="h-[1000px] bg-gray-300 text-white w-full">

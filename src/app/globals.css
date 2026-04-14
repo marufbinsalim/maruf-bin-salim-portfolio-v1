@@ -155,3 +155,25 @@
     opacity: 0.4;
   }
 }
+
+
+/* ─────────────────────────────────────────────
+   GLOBAL TEXT SELECTION STYLES
+   ───────────────────────────────────────────── */
+
+/* Chrome, Edge, Safari */
+::selection {
+  color: #ffffff;        /* selected text color */
+  background: #494949;   /* selected background color (blue) */
+}
+
+/* Firefox */
+::-moz-selection {
+  color: #ffffff;
+  background: #494949;
+}
+
+/* Optional: make sure it applies cleanly everywhere */
+html {
+  -webkit-tap-highlight-color: transparent; /* removes mobile tap highlight */
+}
