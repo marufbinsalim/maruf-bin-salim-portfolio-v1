@@ -1,10 +1,11 @@
+"use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import RouteTransitionProvider from "@/providers/RouteTransitionProvider";
 import Navbar from "@/components/shared/navbar";
-import { CircleCursor, CursorEnhancerLayer, CursorEnhancerProvider } from "@/components/shared/cursorEnhancer";
+import { CursorCircularTrail, CursorTrailArea, CursorTrailProvider } from "@/components/shared/react-cursor-trail/core";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -14,6 +15,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  console.log("DIV =", CursorTrailArea.div);
+  
+
   return (
     <html
       lang="en"
@@ -22,12 +27,12 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <SmoothScrollProvider>
           <RouteTransitionProvider>
-            <CursorEnhancerProvider>
-              <CursorEnhancerLayer enhance={<CircleCursor color="black" backgroundColor="white" blendMode="difference" />}>
+            <CursorTrailProvider>
+              <CursorTrailArea.div trail={<CursorCircularTrail color="black" backgroundColor="white" blendMode="difference" />}>
                 <Navbar />
-              </CursorEnhancerLayer>
+              </CursorTrailArea.div>
               {children}
-            </CursorEnhancerProvider>
+            </CursorTrailProvider>
           </RouteTransitionProvider>
         </SmoothScrollProvider>
       </body>
