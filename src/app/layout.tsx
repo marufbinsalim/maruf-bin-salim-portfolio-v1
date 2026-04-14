@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import RouteTransitionProvider from "@/providers/RouteTransitionProvider";
 import Navbar from "@/components/shared/navbar";
-import { CursorCircularTrail, CursorTrailArea, CursorTrailProvider } from "@/components/shared/react-cursor-trail/core";
+import { CursorCircularTrail, CursorTrailArea, CursorTrailProvider } from "cursor-trail-react";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -16,7 +16,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  console.log("DIV =", CursorTrailArea.div);
   
 
   return (

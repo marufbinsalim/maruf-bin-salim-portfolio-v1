@@ -1,5 +1,6 @@
 "use client";
-import { CursorCircularTrail, CursorTrailArea } from "@/components/shared/cursor-trail/core";
+
+import { CursorCircularTrail, CursorTrailArea } from "cursor-trail-react";
 
 export default function Home() {
   return (
