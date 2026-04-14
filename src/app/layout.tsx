@@ -4,8 +4,7 @@ import { cn } from "@/lib/utils";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import RouteTransitionProvider from "@/providers/RouteTransitionProvider";
 import Navbar from "@/components/shared/navbar";
-import { CursorEnhancerLayer, CursorEnhancerProvider } from "@/components/shared/cursorEnhancer";
-import { CircleCursor, DotCursor } from "@/components/shared/cursorEnhancer/examples";
+import { CircleCursor, CursorEnhancerLayer, CursorEnhancerProvider } from "@/components/shared/cursorEnhancer";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -24,7 +23,7 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <RouteTransitionProvider>
             <CursorEnhancerProvider>
-              <CursorEnhancerLayer enhance={<CircleCursor size={15} color="black" backgroundColor="white" blendMode="difference" />}>
+              <CursorEnhancerLayer enhance={<CircleCursor color="black" backgroundColor="white" blendMode="difference" />}>
                 <Navbar />
               </CursorEnhancerLayer>
               {children}
