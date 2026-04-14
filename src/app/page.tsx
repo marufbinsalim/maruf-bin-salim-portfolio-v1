@@ -1,12 +1,13 @@
 "use client";
 
-import { CursorCircularTrail, CursorTrailArea } from "@/lib/cursor-trail-react";
+import { CursorFadingLineTrail } from "@/components/shared/custom-cursor-trails/cursor-fading-line-trail";
+import { CursorCircularTrail, CursorTrailArea } from "cursor-trail-react";
 
 export default function Home() {
   return (
-    <CursorTrailArea.div trail={<CursorCircularTrail color="red" />}>
+    <CursorTrailArea.div trail={<CursorFadingLineTrail color="black" />}>
       <div className="h-[1000px] bg-gray-300 text-white mt-16 w-full">
-        Should be red
+        Should be black
       </div>
       <div className="flex flex-col h-svh border bg-black">
         <CursorTrailArea.div trail={<CursorCircularTrail color="blue" />}>
