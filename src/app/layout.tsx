@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 import RouteTransitionProvider from "@/providers/RouteTransitionProvider";
 import Navbar from "@/components/shared/navbar";
-import { CursorCircularTrail, CursorTrailArea, CursorTrailProvider } from "cursor-trail-react";
+import { CursorCircularTrail, CursorTrailArea, CursorTrailProvider } from "@/lib/cursor-trail-react";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
