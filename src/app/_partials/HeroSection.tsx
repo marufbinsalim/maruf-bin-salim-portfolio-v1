@@ -1,3 +1,4 @@
+import RopeDivider from '@/components/ui/rope-divider';
 import { CursorCircularTrail, CursorTrailArea } from 'cursor-trail-react';
 import React from 'react';
 
@@ -11,7 +12,7 @@ const HeroSection: React.FC = () => {
                 <div className="flex flex-col space-y-6 flex-2/3">
                     {/* HELLO! badge */}
                     <CursorTrailArea.div data-cursor="active" trail={<CursorCircularTrail color="black" backgroundColor="white" blendMode='difference' />}
-                        className="px-4 py-1.5 w-fit border-4 border-black hover:bg-black hover:text-white transition-all duration-300"
+                        className="px-4 py-1.5 w-fit border-4 font-bold border-black hover:bg-black hover:text-white transition-all duration-300"
                     >
                         <span className="font-bol text-sm">HELLO!</span>
                     </CursorTrailArea.div>
@@ -21,7 +22,7 @@ const HeroSection: React.FC = () => {
                         <h1 className="text-black text-4xl sm:text-5xl md:text-6xl font-extrabold flex flex-wrap gap-2 items-end">
                             I
                             <span className='text-base sm:text-lg font-semibold text-black'>
-                                am 
+                                am
                             </span>
                             <span className='text-base sm:text-lg font-semibold'>
                                 Md.
@@ -45,7 +46,7 @@ const HeroSection: React.FC = () => {
                     </div>
 
                     {/* Bio / Description - tailored for Maruf as a generalist & React expert */}
-                    <div className="space-y-4 text-black leading-relaxed">
+                    <div className="space-y-4 text-black leading-relaxed relative">
                         <p className="text-base sm:text-lg">
                             I'm a <span className="font-bold text-black">fullstack generalist</span> who thrives at the intersection of
                             <span className="font-bold text-black"> scalable architecture, UI craftsmanship, and team impact</span>.
@@ -59,18 +60,18 @@ const HeroSection: React.FC = () => {
                             When I'm not coding, you'll find me trail running, exploring open-source, or brewing
                             pour-over coffee.
                         </p>
+                        <RopeDivider strokeWidth={1} color='#161616' />
                     </div>
+
 
 
 
                     {/* Optional CTA / fun fact line (like original's travel/yoga) */}
                     <CursorTrailArea.div trail={<CursorCircularTrail color="transparent" backgroundColor="#00000000" />}
-                        className="pt-2 text-sm text-black border-t border-slate-200 flex items-center gap-3"
+                        className="relative text-sm text-black flex items-center gap-3"
                     >
                         <span className="flex items-center gap-1">Email</span>
-                        <span className="w-1 h-1 rounded-full bg-slate-300"></span>
                         <span className="flex items-center gap-1">Linked In</span>
-                        <span className="w-1 h-1 rounded-full bg-slate-300"></span>
                         <span className="flex items-center gap-1">Github</span>
                     </CursorTrailArea.div>
                 </div>
